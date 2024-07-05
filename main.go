@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	iterations = 100
+	iterations = 5
 )
 
 const (
@@ -176,7 +176,7 @@ func train(transformedImages []TransformedImagesWithResult) {
 			/* Input dimensionality */
 			Inputs: 784,
 			/* Two hidden layers consisting of two neurons each, and a single output */
-			Layout: []int{50, 10},
+			Layout: []int{512, 512, 10},
 			/* Activation functions: Sigmoid, Tanh, ReLU, Linear */
 			Activation: deep.ActivationSigmoid,
 			/* Determines output layer activation & loss function:
@@ -203,9 +203,9 @@ func train(transformedImages []TransformedImagesWithResult) {
 	}()
 
 	// params: learning rate, momentum, alpha decay, nesterov
-	optimizer := training.NewSGD(0.002, 0.9, 1e-6, true)
+	optimizer := training.NewSGD(0.001, 0.9, 1e-6, true)
 	// params: optimizer, verbosity (print stats at every 50th iteration)
-	trainer := training.NewBatchTrainer(optimizer, 50, 128, 4)
+	trainer := training.NewBatchTrainer(optimizer, 1, 128, 3)
 
 	trainer.Train(n, data, test, iterations) // training, validation, iterations
 
